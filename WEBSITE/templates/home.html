@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 align="center">BOTS PLAN</h1>
+
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <li class="list-group-item">
+        {{ note.data }}
+        <button type="button" class="close" onclick="deleteNote({{note.id}})">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+
+
+<h2 class="mt-4" align="center">Trading Bot Subscription Plans</h2>
+<div class="row mt-4 justify-content-center"> <!-- מרכז את כל הכרטיסים -->
+    <!-- כרטיס רגיל -->
+    <!-- Basic Plan -->
+    <div class="col-md-8 mb-3">
+        <div class="card shadow-sm" style="max-width: 700px; margin: auto;">
+            <div class="card-header text-center bg-success text-white">
+                BTC/USD Basic
+            </div>
+            <div class="card-body text-center">
+                <h3 class="card-title">₪39/month</h3>
+                <ul class="text-right"> 
+                    <li>הבוט פועל על נתוני עבר ומעדכן את החלטותיו בזמן אמת</li>
+                    <li>המערכת מציגה ביצועים חזקים על נתוני היסטוריה (Backtesting)</li>
+                    <li>המשתמש מפעיל את הבוט על חשבונו בלבד – ללא ניהול תיק</li>
+                    <li>פוטנציאל לרווח לינארי או אקספוננציאלי בהתאם לשימוש</li>
+                    <li>המטרה היא ליצור תהליך איטי, בטוח ויציב שבו המשתמש מושך רווחים אליו</li>
+                    <li>המערכת מספקת הוכחת התכנות (POC) חזקה מאוד</li>
+                </ul>
+                <!-- Add Pay Button -->
+                <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9DG27724TW6851843NENVH6I" class="btn btn-success btn-block" target="_blank">
+                    Pay & Subscribe
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="col-md-8 mb-3">
+        <div class="card shadow-lg" style="max-width: 700px; margin: auto; border: 2px solid #5a2a83;">
+            <div class="card-header text-center text-white" style="background-color:#5a2a83;">
+                BTC/USD Premium
+            </div>
+            <div class="card-body text-center">
+                <h3 class="card-title">₪79/month</h3>
+                <ul class="text-right"> 
+                    <li>אותם תכונות כמו התוכנית הבסיסית</li>
+                    <li>כאן הבוט בונה תהליך של רווח אקספוננציאלי בו הבוט ישתמש גם בכסף שהוא מרוויח</li>
+                </ul>
+                <!-- Add Pay Button -->
+                <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9DG27724TW6851843NENVH6I" class="btn btn-dark btn-block" target="_blank">
+                    Pay & Subscribe
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<script>
+    function deleteNote(noteId) {
+        fetch('/delete-note', {
+            method: 'POST',
+            body: JSON.stringify({ noteId: noteId }), // IMPORTANT FIX
+        })
+        .then((_res) => {
+            window.location.href = "/";
+        });
+    }
+</script>
+
+{% endblock %}
