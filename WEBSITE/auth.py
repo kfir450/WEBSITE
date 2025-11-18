@@ -63,4 +63,13 @@ def sign_up():
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
+
     return render_template("sign_up.html", user=current_user)
+    # Temporary functions so Railway will not crash
+def grant_bot_access(email, plan="Basic"):
+    print(f"Granting bot access to {email}, plan {plan}")
+    return True
+
+def revoke_bot_access(email):
+    print(f"Revoking bot access from {email}")
+    return True
